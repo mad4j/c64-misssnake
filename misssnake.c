@@ -50,7 +50,7 @@ typedef struct {
 snake_t snake;
 
 
-void putchxy(uint8_t x, uint8_t y, uint16_t code)
+void __fastcall__ putchxy(uint8_t x, uint8_t y, uint16_t code)
 {
     textcolor((code & COL_MASK) >> COL_SHIFT);
     revers((code & REV_MASK) >> REV_SHIFT);
@@ -58,7 +58,7 @@ void putchxy(uint8_t x, uint8_t y, uint16_t code)
 }
 
 
-void initSnake()
+void __fastcall__ initSnake()
 {
     snake.head_x = MAX_COLS / 2;
     snake.head_y = MAX_ROWS / 2;
@@ -72,7 +72,7 @@ void initSnake()
 }
 
 
-void updatePosition(uint8_t dir, uint8_t* x, uint8_t* y)
+void __fastcall__ updatePosition(uint8_t dir, uint8_t* x, uint8_t* y)
 {
     switch (dir) {
     case NORTH:
@@ -93,7 +93,7 @@ void updatePosition(uint8_t dir, uint8_t* x, uint8_t* y)
 }
 
 
-void updateHead()
+void __fastcall__ updateHead()
 {
     updatePosition(snake.direction, &snake.head_x, &snake.head_y);
     
@@ -102,7 +102,7 @@ void updateHead()
 }
 
 
-void updateTail()
+void __fastcall__ updateTail()
 {
     uint8_t dir = snake.history[snake.history_rear];
     snake.history_rear = (snake.history_rear + 1) % SNAKE_MAX_LENGTH;
@@ -111,7 +111,7 @@ void updateTail()
 }
 
 
-void updateSnake()
+void __fastcall__ updateSnake()
 {
     updateHead();
     putchxy(snake.head_x, snake.head_y, SNAKE_CODE);
@@ -127,7 +127,7 @@ void updateSnake()
 }
 
 
-void initScreen()
+void __fastcall__ initScreen()
 {
     clrscr();
     bgcolor(COLOR_GREEN);
@@ -136,7 +136,7 @@ void initScreen()
 }
 
 
-void resetScreen()
+void __fastcall__ resetScreen()
 {
     struct regs r;
     
@@ -153,7 +153,7 @@ void resetScreen()
 }
 
 
-void initGameField()
+void __fastcall__ initGameField()
 {   
     uint8_t x = 0;
     uint8_t y = 0;
@@ -170,7 +170,7 @@ void initGameField()
 }
 
 
-void checkKeyboard()
+void __fastcall__ checkKeyboard()
 {
     char ch = 0;
 
@@ -203,7 +203,7 @@ void checkKeyboard()
 }
 
 
-void gameLoop()
+void __fastcall__ gameLoop()
 {
     uint16_t delay = 0;
 
